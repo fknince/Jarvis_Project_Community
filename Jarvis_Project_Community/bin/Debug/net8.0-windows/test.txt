@@ -1,0 +1,6 @@
+
+Son talep ettiğim Browser-Use işleminin sonucundan elde edilen çıktı aşağıdadır:
+---------
+The channel 'Abi Bunu Robotla Yaparız' on YouTube has 94 subscribers.
+---------
+Bu çıktıyı dikkate alarak son talep ettiğim Browser-Use işlemi içerisindeki soruya türkçe ve anlamlı bir cevap vermeni istiyorum.

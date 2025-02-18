@@ -1,0 +1,245 @@
+﻿<Window x:Class="Jarvis_Project_Community.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Jarvis_Project_Community.Views"
+        xmlns:models="clr-namespace:Jarvis_Project_Community.Models"
+        Title="Futuristic AI Assistant" 
+        Width="500" Height="800"
+        Background="#80000D1A"          
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        AllowsTransparency="False"
+        >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Ortak Tasarım Kaynakları -->
+                <ResourceDictionary Source="/Resources/CommonDesign.xaml" />
+                <!-- Animasyon Kaynakları -->
+                <ResourceDictionary Source="/Resources/Animations.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Sohbet Mesajı Şablonları -->
+            <DataTemplate x:Key="AssistantMessageTemplate" DataType="{x:Type models:ChatMessage}">
+                <Border Background="#FF1D1D1D" CornerRadius="10" Padding="10" Margin="5" HorizontalAlignment="Left">
+                    <TextBlock Text="{Binding Message}" Foreground="White" TextWrapping="Wrap"/>
+                </Border>
+            </DataTemplate>
+            <DataTemplate x:Key="UserMessageTemplate" DataType="{x:Type models:ChatMessage}">
+                <Border Background="#FF3D3D3D" CornerRadius="10" Padding="10" Margin="5" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding Message}" Foreground="White" TextWrapping="Wrap"/>
+                </Border>
+            </DataTemplate>
+            <!-- Mesaj Tipine Göre Şablon Seçimi Yapacak Selector -->
+            <local:ChatMessageTemplateSelector x:Key="ChatMessageTemplateSelector"
+                                               AssistantTemplate="{StaticResource AssistantMessageTemplate}"
+                                               UserTemplate="{StaticResource UserMessageTemplate}" />
+
+            <!-- Modern Expander ToggleButton Stili -->
+            <Style x:Key="ModernExpanderToggleButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border Background="{TemplateBinding Background}" 
+                                    CornerRadius="10"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="90"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Modern Expander Stili -->
+            <Style x:Key="ModernExpanderStyle" TargetType="Expander">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Expander">
+                            <Border Background="Transparent" CornerRadius="10">
+                                <StackPanel>
+                                    <ToggleButton x:Name="HeaderSite"
+                                                  Content="{TemplateBinding Header}"
+                                                  Style="{StaticResource ModernExpanderToggleButtonStyle}"
+                                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                    <ContentPresenter x:Name="ExpandSite"
+                                                      Visibility="Collapsed"
+                                                      ContentSource="Content" />
+                                </StackPanel>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsExpanded" Value="True">
+                                    <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Yuvarlatılmış Thumb Stili (CornerRadius desteği için) -->
+            <Style x:Key="RoundedThumbStyle" TargetType="Thumb">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Thumb">
+                            <Border Background="{TemplateBinding Background}"
+                                    CornerRadius="4" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Modern ScrollBar Stili -->
+            <Style x:Key="ModernScrollBarStyle" TargetType="ScrollBar">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Width" Value="8"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+                            <Grid Background="Transparent">
+                                <Track x:Name="PART_Track" IsDirectionReversed="true">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="ScrollBar.LineUpCommand" 
+                                                      Style="{x:Null}" 
+                                                      Background="Transparent" 
+                                                      IsTabStop="False" 
+                                                      Focusable="False"
+                                                      BorderThickness="0"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Background="White" Height="50" Style="{StaticResource RoundedThumbStyle}" />
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="ScrollBar.LineDownCommand" 
+                                                      Style="{x:Null}" 
+                                                      Background="Transparent" 
+                                                      IsTabStop="False" 
+                                                      Focusable="False"
+                                                      BorderThickness="0"/>
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <!-- Ana Düzen: Üç satırlı Grid (üst: küre, orta: sohbet alanı, alt: butonlar) -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Küre Alanı -->
+            <RowDefinition Height="2*"/>
+            <!-- Sohbet Alanı -->
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Küre Alanı (Row 0) -->
+        <Grid Grid.Row="0" x:Name="sphereContainer" ClipToBounds="True">
+            <Viewbox Stretch="Uniform">
+                <Border Padding="30">
+                    <Grid x:Name="mainContainer" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- Particle System -->
+                        <Canvas x:Name="particleSystem" Opacity="0.4">
+                            <Ellipse Width="4" Height="4" Fill="#3F00FFFF" Canvas.Left="120" Canvas.Top="130">
+                                <Ellipse.RenderTransform>
+                                    <TranslateTransform x:Name="dustParticle1Transform"/>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <!-- Diğer parçacıklar... -->
+                        </Canvas>
+
+                        <!-- Core Sphere -->
+                        <Grid x:Name="coreSystem">
+                            <Ellipse x:Name="coreBase" Width="200" Height="200" Fill="{StaticResource HolographicCore}"/>
+                            <Ellipse x:Name="coreGlow" Width="220" Height="220" Margin="-10">
+                                <Ellipse.RenderTransform>
+                                    <ScaleTransform x:Name="coreGlowScaleTransform" CenterX="110" CenterY="110"/>
+                                </Ellipse.RenderTransform>
+                                <Ellipse.Effect>
+                                    <BlurEffect Radius="20"/>
+                                </Ellipse.Effect>
+                                <Ellipse.Fill>
+                                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5">
+                                        <GradientStop Color="#FF00FFFF" Offset="0"/>
+                                        <GradientStop Color="#0000FFFF" Offset="1"/>
+                                    </RadialGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+
+                        <!-- Speaking Waves (dalga animasyonları) -->
+                        <Canvas x:Name="speakingWaves">
+                            <Ellipse x:Name="wave1" Width="220" Height="220" Stroke="#7F00FFFF" StrokeThickness="2" Opacity="0"
+                                     Canvas.Left="-10" Canvas.Top="-10">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="wave1ScaleTransform" CenterX="110" CenterY="110"/>
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Ellipse x:Name="wave2" Width="220" Height="220" Stroke="#7F00FFFF" StrokeThickness="2" Opacity="0"
+                                     Canvas.Left="-10" Canvas.Top="-10">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="wave2ScaleTransform" CenterX="110" CenterY="110"/>
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                            <Ellipse x:Name="wave3" Width="220" Height="220" Stroke="#7F00FFFF" StrokeThickness="2" Opacity="0"
+                                     Canvas.Left="-10" Canvas.Top="-10">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="wave3ScaleTransform" CenterX="110" CenterY="110"/>
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                            </Ellipse>
+                        </Canvas>
+
+                    </Grid>
+                </Border>
+            </Viewbox>
+        </Grid>
+
+        <!-- Sohbet Alanı (Row 1) -->
+        <!-- Modern expander stili uygulandı -->
+        <Expander Header="Chat" IsExpanded="True" Grid.Row="1" Style="{StaticResource ModernExpanderStyle}">
+            <!-- Chat alanı için belirgin arka plan rengi ve yuvarlak köşeler -->
+            <Border Background="#2A2A2A" CornerRadius="15" Padding="5" Margin="10">
+                <ScrollViewer x:Name="chatScrollViewer" VerticalScrollBarVisibility="Auto"
+                  Height="320"  MinHeight="320" Padding="5">
+                    <!-- ScrollViewer içerisindeki ScrollBar'lar için modern stil uygulanıyor -->
+                    <ScrollViewer.Resources>
+                        <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource ModernScrollBarStyle}" />
+                    </ScrollViewer.Resources>
+                    <ItemsControl x:Name="chatList" ItemsSource="{Binding ChatMessages}" 
+                                  ItemTemplateSelector="{StaticResource ChatMessageTemplateSelector}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Border>
+        </Expander>
+
+
+    </Grid>
+</Window>

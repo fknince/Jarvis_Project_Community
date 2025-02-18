@@ -1,0 +1,185 @@
+INFO     [browser_use] BrowserUse logging setup complete with level info
+INFO     [root] Anonymized telemetry enabled. See https://docs.browser-use.com/development/telemetry for more information.
+INFO     [agent] 🚀 Starting task: Open YouTube.com and search for 'Abi Bunu Robotla Yaparız' channel. Once found, extract the current subscriber count.
+INFO     [agent] 📍 Step 1
+INFO     [agent] 🤷 Eval: Unknown
+INFO     [agent] 🧠 Memory: Starting with a new task to search for 'Abi Bunu Robotla Yaparız' on YouTube and extract the subscriber count.
+INFO     [agent] 🎯 Next goal: Open YouTube and search for the channel.
+INFO     [agent] 🛠️  Action 1/1: {"go_to_url":{"url":"https://www.youtube.com"}}
+INFO     [controller] 🔗  Navigated to https://www.youtube.com
+INFO     [agent] 📍 Step 2
+INFO     [agent] 👍 Eval: Success - Navigated to YouTube's homepage.
+INFO     [agent] 🧠 Memory: Navigated to YouTube. Next step is to search for 'Abi Bunu Robotla Yaparız' channel.
+INFO     [agent] 🎯 Next goal: Input the search query 'Abi Bunu Robotla Yaparız' and initiate the search.
+INFO     [agent] 🛠️  Action 1/2: {"input_text":{"index":4,"text":"Abi Bunu Robotla Yaparız"}}
+INFO     [agent] 🛠️  Action 2/2: {"click_element":{"index":5}}
+INFO     [controller] ⌨️  Input Abi Bunu Robotla Yaparız into index 4
+INFO     [controller] Something new appeared after action 1 / 2
+INFO     [agent] 📍 Step 3
+INFO     [agent] 👍 Eval: Success - The search query 'Abi Bunu Robotla Yaparız' was input successfully. Suggestion list displayed the channel name.
+INFO     [agent] 🧠 Memory: Input search query on YouTube. Next click on the channel suggestion from the list.
+INFO     [agent] 🎯 Next goal: Click on the suggestion for 'Abi Bunu Robotla Yaparız' from the list.
+INFO     [agent] 🛠️  Action 1/1: {"click_element":{"index":8}}
+INFO     [controller] 🖱️  Clicked button with index 8: 
+INFO     [agent] 📍 Step 4
+INFO     [agent] 👍 Eval: Success - Successfully performed the search and found the channel.
+INFO     [agent] 🧠 Memory: Performed search on YouTube, found 'Abi Bunu Robotla Yaparız' with 94 subscribers.
+INFO     [agent] 🎯 Next goal: Task complete. Report the subscriber count.
+INFO     [agent] 🛠️  Action 1/1: {"done":{"text":"The channel 'Abi Bunu Robotla Yaparız' on YouTube has 94 subscribers."}}
+INFO     [agent] 📄 Result: The channel 'Abi Bunu Robotla Yaparız' on YouTube has 94 subscribers.
+INFO     [agent] ✅ Task completed successfully
+{
+    "history": [
+        {
+            "model_output": {
+                "current_state": {
+                    "page_summary": "",
+                    "evaluation_previous_goal": "Unknown",
+                    "memory": "Starting with a new task to search for 'Abi Bunu Robotla Yaparız' on YouTube and extract the subscriber count.",
+                    "next_goal": "Open YouTube and search for the channel."
+                },
+                "action": [
+                    {
+                        "go_to_url": {
+                            "url": "https://www.youtube.com"
+                        }
+                    }
+                ]
+            },
+            "result": [
+                {
+                    "is_done": false,
+                    "extracted_content": "🔗  Navigated to https://www.youtube.com",
+                    "include_in_memory": true
+                }
+            ],
+            "state": {
+                "tabs": [
+                    {
+                        "page_id": 0,
+                        "url": "about:blank",
+                        "title": ""
+                    }
+                ],
+                "url": "about:blank",
+                "title": ""
+            }
+        },
+        {
+            "model_output": {
+                "current_state": {
+                    "page_summary": "",
+                    "evaluation_previous_goal": "Success - Navigated to YouTube's homepage.",
+                    "memory": "Navigated to YouTube. Next step is to search for 'Abi Bunu Robotla Yaparız' channel.",
+                    "next_goal": "Input the search query 'Abi Bunu Robotla Yaparız' and initiate the search."
+                },
+                "action": [
+                    {
+                        "input_text": {
+                            "index": 4,
+                            "text": "Abi Bunu Robotla Yaparız"
+                        }
+                    },
+                    {
+                        "click_element": {
+                            "index": 5
+                        }
+                    }
+                ]
+            },
+            "result": [
+                {
+                    "is_done": false,
+                    "extracted_content": "⌨️  Input Abi Bunu Robotla Yaparız into index 4",
+                    "include_in_memory": true
+                },
+                {
+                    "is_done": false,
+                    "extracted_content": "Something new appeared after action 1 / 2",
+                    "include_in_memory": true
+                }
+            ],
+            "state": {
+                "tabs": [
+                    {
+                        "page_id": 0,
+                        "url": "https://www.youtube.com/",
+                        "title": "YouTube"
+                    }
+                ],
+                "url": "https://www.youtube.com/",
+                "title": "YouTube"
+            }
+        },
+        {
+            "model_output": {
+                "current_state": {
+                    "page_summary": "",
+                    "evaluation_previous_goal": "Success - The search query 'Abi Bunu Robotla Yaparız' was input successfully. Suggestion list displayed the channel name.",
+                    "memory": "Input search query on YouTube. Next click on the channel suggestion from the list.",
+                    "next_goal": "Click on the suggestion for 'Abi Bunu Robotla Yaparız' from the list."
+                },
+                "action": [
+                    {
+                        "click_element": {
+                            "index": 8
+                        }
+                    }
+                ]
+            },
+            "result": [
+                {
+                    "is_done": false,
+                    "extracted_content": "🖱️  Clicked button with index 8: ",
+                    "include_in_memory": true
+                }
+            ],
+            "state": {
+                "tabs": [
+                    {
+                        "page_id": 0,
+                        "url": "https://www.youtube.com/",
+                        "title": "YouTube"
+                    }
+                ],
+                "url": "https://www.youtube.com/",
+                "title": "YouTube"
+            }
+        },
+        {
+            "model_output": {
+                "current_state": {
+                    "page_summary": "A search result for 'Abi Bunu Robotla Yaparız' showed the channel link with 94 subscribers.",
+                    "evaluation_previous_goal": "Success - Successfully performed the search and found the channel.",
+                    "memory": "Performed search on YouTube, found 'Abi Bunu Robotla Yaparız' with 94 subscribers.",
+                    "next_goal": "Task complete. Report the subscriber count."
+                },
+                "action": [
+                    {
+                        "done": {
+                            "text": "The channel 'Abi Bunu Robotla Yaparız' on YouTube has 94 subscribers."
+                        }
+                    }
+                ]
+            },
+            "result": [
+                {
+                    "is_done": true,
+                    "extracted_content": "The channel 'Abi Bunu Robotla Yaparız' on YouTube has 94 subscribers.",
+                    "include_in_memory": false
+                }
+            ],
+            "state": {
+                "tabs": [
+                    {
+                        "page_id": 0,
+                        "url": "https://www.youtube.com/results?search_query=abi+bunu+robotla+yapar%C4%B1z",
+                        "title": "abi bunu robotla yaparız - YouTube"
+                    }
+                ],
+                "url": "https://www.youtube.com/results?search_query=abi+bunu+robotla+yapar%C4%B1z",
+                "title": "abi bunu robotla yaparız - YouTube"
+            }
+        }
+    ]
+}
