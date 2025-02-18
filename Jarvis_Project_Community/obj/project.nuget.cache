@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "6xJfZqI27mw=",
+  "success": true,
+  "projectFilePath": "D:\\dotNetWorkspace\\Jarvis_Project_Community\\Jarvis_Project_Community\\Jarvis_Project_Community.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\abibu\\.nuget\\packages\\microsoft.cognitiveservices.speech\\1.42.0\\microsoft.cognitiveservices.speech.1.42.0.nupkg.sha512",
+    "C:\\Users\\abibu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
